@@ -1,0 +1,8 @@
+:root{
+    --turn-picker-color-aliam-primary : red;
+    --turn-picker-color-aliam-second : red;
+    --turn-picker-color-aliam-third : green;
+}
+._main_container{
+    color: var(--turn-picker-color-aliam-primary);
+}

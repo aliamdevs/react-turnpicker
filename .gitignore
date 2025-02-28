@@ -1,0 +1,26 @@
+node_modules/
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+public/
+
+eslint.config.js
+
+index.html
+
+vite.config.js
+package-lock.json
+package.json
+
+src/App.css
+src/App.jsx
+src/index.css
+src/main.jsx
+
+src/assets/react.svg
