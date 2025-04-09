@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function Assembler(props) {
-  return <React.Fragment>{props.style}</React.Fragment>;
+export default function Assembler({ month, year, setMonth, setYear }) {
+  return <React.Fragment></React.Fragment>;
 }

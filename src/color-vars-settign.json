@@ -1,5 +1,14 @@
 {
   "primary": "--turn-picker-color-aliam-primary",
   "second": "--turn-picker-color-aliam-second",
-  "third": "--turn-picker-color-aliam-third"
+  "third": "--turn-picker-color-aliam-third",
+  "darkerprimary": "--turn-picker-color-aliam-primary-darker",
+  "darkersecond": "--turn-picker-color-aliam-second-darker",
+  "darkerthird": "--turn-picker-color-aliam-third-darker",
+  "contextcolorP": "--turn-picker-color-aliam-contextP",
+  "contextcolorS": "--turn-picker-color-aliam-contextS",
+  "backColorFixed": "--turn-picker-color-aliam-back-fixed",
+  "backColorTint": "--turn-picker-color-aliam-back-tint",
+  "contextcolorT": "--turn-picker-color-aliam-contextT",
+  "borderColor": "--turn-picker-color-aliam-border-main"
 }
