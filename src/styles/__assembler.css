@@ -1,0 +1,87 @@
+.S1{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.SD1{
+    width: 49%;
+    height: 50px;
+    background-color: var(--turn-picker-color-aliam-back-fixed);
+    background-image:  radial-gradient(#55555549 0.5px, transparent 0.5px), radial-gradient(#55555549 0.5px, var(--turn-picker-color-aliam-back-fixed) 0.5px);
+    background-size: 20px 20px;
+    background-position: 0 0,10px 10px;
+    border-radius: 15px;
+    box-sizing: border-box;
+}
+.__TP_shadow_is_alowed_for_This_contect_Aliam_With_low_Op{
+    box-shadow: 0 0 10px 12px #00000011;
+}
+.__TP_border_is_alowed_for_This_contect_Aliam_With_low_Op{
+    border: 1px solid var(--turn-picker-color-aliam-border-main);
+}
+.Aliam_TP_Manual_YF_Container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 8px;
+    padding: 0 8px;
+    box-sizing: border-box;
+}
+.TP_M_YF_Display{
+    flex-grow: 1;
+    height: 37px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+.TP_M_YF_Display span{
+    font-family: "bold";
+    font-size: 20px;
+    color: #535353;
+    margin-top: 13px;
+}
+.___TP_MYF_Stand_Disp{
+    border: 1px solid #f7f7f7;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+}
+.TP_M_YF_Butoom{
+    width: 33px;
+    height: 35px;
+    background-color: var(--turn-picker-color-aliam-second);
+    border: 1px solid var(--turn-picker-color-aliam-second-darker);
+    transition: all 0.3s ease-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+.TP_M_YF_Butoom_Sec2{
+    background-color: var(--turn-picker-color-aliam-primary);
+    border: 1px solid var(--turn-picker-color-aliam-primary);
+}
+.TP_M_YF_Butoom_Sec1:hover{
+    filter: brightness(110%);
+}
+.TP_M_YF_Butoom_Sec1{
+    background-color: var(--turn-picker-color-aliam-second);
+    border: 1px solid var(--turn-picker-color-aliam-second-darker);
+}
+.TP_M_YF_Butoom_Sec2:hover{
+    filter: brightness(110%);
+}
+.TP_M_YF_Butoom_ICO{
+    width: 27px;
+    rotate: -90deg;
+}
+.TP_M_YF_Butoom_ICO_ROTATE{
+    rotate: 90deg;
+}

@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Assembler from "./src/assembler";
 import ColorVars from "./src/color-vars-settign.json";
-import monthName from "./src/tools/month_name_array.json";
 import "./src/styles/__main.css";
 import { convertToPersianDigits, SetColorInStyles } from "./src/tools/common";
-import { DTDW, includes_date, returnMonthsDays } from "./src/tools/date_funcs";
+import {
+  DTDW,
+  includes_date,
+  returnMonthsDays,
+  soldout_includes,
+} from "./src/tools/date_funcs";
 import { j2q } from "./src/tools/hijri.jalali";
 import Aliam_TP_TitrUp_Compo from "./src/subcomponents/Aliam_TP_TitrUp_Compo";
 import Aliam_TP_Space_Item from "./src/subcomponents/Aliam_TP_Space_Item";
@@ -92,9 +96,10 @@ export default function TurnPicker({
   background = "#fffdf9",
   mode = "D",
   disabled = false,
-  shadow = false,
-  border = true,
+  shadow = true,
+  border = false,
   borderColor = "#e6e6e6",
+  weekly_day_name_style = "standard",
   enNum = false,
   folded_spicific_day = [{ y: 1404, m: 1, d: 17 }], //items : {y:year,m:month,d:day}
   folded_weekly_day = [6],
@@ -104,26 +109,75 @@ export default function TurnPicker({
   soldedOut = [], // H mode : {y:year,m:month,d:day,h:(Box Index -> 0-19)} // D Mode : {y:year,m:month,d:day}
   boxesConfig = { BoxesDeafultConfiguration },
 }) {
-  const [theDay, settheDay] = useState(21);
-  const [theMonth, settheMonth] = useState(1);
+  const [theDay, settheDay] = useState(1);
+  const [theMonth, settheMonth] = useState(4);
   const [theYear, settheYear] = useState(1404);
   const [MONTHVOCAB, setMONTHVOCAB] = useState([]);
   const [TPNotLeaf, setTPNotLeaf] = useState([]);
+  const [is1thfriday, setis1thfriday] = useState(
+    DTDW({ y: theYear, m: theMonth, d: 1 })[1] == 6 &&
+      returnMonthsDays(theYear)[theMonth - 1] > 29
+  );
+  const [is1thThu, setis1thThu] = useState(
+    DTDW({ y: theYear, m: theMonth, d: 1 })[1] == 5 &&
+      returnMonthsDays(theYear)[theMonth - 1] === 31
+  );
+  const [LASTDAYSARE, setLASTDAYSARE] = useState([]);
   useEffect(() => {
     SetColorInStyles(ColorVars, colorPalette, background, borderColor);
   }, [colorPalette, background, borderColor]);
+
   useEffect(() => {
     let tmp = [];
-    for (let i = 1; i < returnMonthsDays(theYear)[theMonth - 1] + 1; i++) {
+    for (
+      let i = 1;
+      i < returnMonthsDays(theYear)[theMonth - 1] + 1 - LASTDAYSARE.length;
+      i++
+    ) {
       tmp.push(i);
     }
     setMONTHVOCAB(tmp);
     let ttmp = [];
-    for (let i = 0; i < DTDW({ y: theYear, m: theMonth, d: 1 })[1]; i++) {
+    for (
+      let i = 0;
+      i < DTDW({ y: theYear, m: theMonth, d: 1 })[1] - LASTDAYSARE.length;
+      i++
+    ) {
       ttmp.push("X");
     }
     setTPNotLeaf(ttmp);
+  }, [theYear, theMonth, LASTDAYSARE]);
+  useEffect(() => {
+    if (is1thfriday) {
+      if (returnMonthsDays(theYear)[theMonth - 1] === 31) {
+        setLASTDAYSARE([30, 31]);
+      } else if (returnMonthsDays(theYear)[theMonth - 1] === 30) {
+        setLASTDAYSARE([30]);
+      } else {
+        setLASTDAYSARE([]);
+      }
+    } else if (is1thThu) {
+      if (returnMonthsDays(theYear)[theMonth - 1] === 31) {
+        setLASTDAYSARE([31]);
+      } else {
+        setLASTDAYSARE([]);
+      }
+    } else {
+      setLASTDAYSARE([]);
+    }
+  }, [is1thThu, is1thfriday]);
+
+  useEffect(() => {
+    setis1thfriday(
+      DTDW({ y: theYear, m: theMonth, d: 1 })[1] == 6 &&
+        returnMonthsDays(theYear)[theMonth - 1] > 29
+    );
+    setis1thThu(
+      DTDW({ y: theYear, m: theMonth, d: 1 })[1] == 5 &&
+        returnMonthsDays(theYear)[theMonth - 1] === 31
+    );
   }, [theYear, theMonth]);
+
   const checkFormalHoliday = (y, m, d) => {
     let QH = true;
     if (y > 1405) {
@@ -157,16 +211,34 @@ export default function TurnPicker({
       checkFormalHoliday(theYear, theMonth, x)
     );
   };
+
+  useEffect(() => {
+    let tmpd = 1;
+    while (true) {
+      if (folded_cheker(tmpd)) {
+        tmpd++;
+      } else {
+        settheDay(tmpd);
+        break;
+      }
+    }
+  }, [theMonth, theYear]);
   switch (disabled) {
     case false:
       return (
         <React.Fragment>
-          <div className="_main_container" id="__VARS_TurnPickerDiv_ID_Aliam">
+          <div
+            className="_main_container __Aliam_TP_prevent_select "
+            id="__VARS_TurnPickerDiv_ID_Aliam"
+          >
             <Assembler
               month={theMonth}
               year={theYear}
               setMonth={settheMonth}
               setYear={settheYear}
+              shadow={shadow}
+              border={border}
+              em={enNum}
             />
             <div
               className={
@@ -179,7 +251,35 @@ export default function TurnPicker({
                   : " ")
               }
             >
-              <Aliam_TP_TitrUp_Compo />
+              <Aliam_TP_TitrUp_Compo
+                tns={["standard", "light", "numberic"].indexOf(
+                  weekly_day_name_style
+                )}
+              />
+              {is1thfriday || is1thThu
+                ? LASTDAYSARE.map((x, i) => {
+                    return (
+                      <div
+                        className={
+                          "__TP_box_day_displayer " +
+                          (folded_cheker(x)
+                            ? "__TP_light_bdd "
+                            : "__TP_secon_bdd ") +
+                          (x === theDay ? "__TP_prim_bdd " : " ")
+                          //__TP_third_bdd
+                        }
+                        key={i}
+                        onClick={() => {
+                          if (!folded_cheker(x)) settheDay(x);
+                        }}
+                      >
+                        <Aliam_TP_Item_Num Selected={x === theDay}>
+                          {!enNum ? convertToPersianDigits(x) : x}
+                        </Aliam_TP_Item_Num>
+                      </div>
+                    );
+                  })
+                : null}
               <Aliam_TP_Space_Item data={TPNotLeaf} />
               {MONTHVOCAB.map((x, i) => {
                 return (
@@ -197,7 +297,7 @@ export default function TurnPicker({
                       if (!folded_cheker(x)) settheDay(x);
                     }}
                   >
-                    <Aliam_TP_Item_Num>
+                    <Aliam_TP_Item_Num Selected={x === theDay}>
                       {!enNum ? convertToPersianDigits(x) : x}
                     </Aliam_TP_Item_Num>
                   </div>

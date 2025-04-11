@@ -81,3 +81,21 @@ export function includes_date(date_array, date) {
   }
   return false;
 }
+export function soldout_includes(arr, date, mode) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].y === date.y) {
+      if (arr[i].m === date.m) {
+        if (arr[i].d === date.d) {
+          if (mode === "H") {
+            if (arr[i].h === date.h) {
+              return true;
+            }
+          } else {
+            return true;
+          }
+        }
+      }
+    }
+  }
+  return false;
+}

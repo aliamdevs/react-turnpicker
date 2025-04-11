@@ -1,14 +1,20 @@
 import React from "react";
-export default function Aliam_TP_TitrUp_Compo() {
+const titrup_classes_names = "__TitrUp_aliam_TP_Component ___TP_TU_Standard";
+const titr_name_styles = [
+  ["شنبه", "یک‌شنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنج‌شنبه", "جمعه"],
+  ["شنبه", "یک‌ شــ", "دو شــ", "سه‌ شــ", "چهار شــ", "پنج‌ شــ", "جمعه"],
+  ["شنبه", "۱ شنبه", "۲ شنبه", "۳ شنبه", "۴ شنبه", "۵ شنبه", "جمعه"],
+];
+export default function Aliam_TP_TitrUp_Compo(props) {
   return (
     <React.Fragment>
-      <span className="__TitrUp_aliam_TP_Component">شنبه</span>
-      <span className="__TitrUp_aliam_TP_Component">یک‌شنبه</span>
-      <span className="__TitrUp_aliam_TP_Component">دوشنبه</span>
-      <span className="__TitrUp_aliam_TP_Component">سه‌شنبه</span>
-      <span className="__TitrUp_aliam_TP_Component">چهارشنبه</span>
-      <span className="__TitrUp_aliam_TP_Component">پنج‌شنبه</span>
-      <span className="__TitrUp_aliam_TP_Component">جمعه</span>
+      {titr_name_styles[props.tns].map((x, i) => {
+        return (
+          <span className={titrup_classes_names} key={i}>
+            {x}
+          </span>
+        );
+      })}
     </React.Fragment>
   );
 }
