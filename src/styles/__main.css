@@ -65,6 +65,7 @@
     background-color: var(--turn-picker-color-aliam-second);
     border: 2px solid var(--turn-picker-color-aliam-second-darker);
     color: var(--turn-picker-color-aliam-contextS);
+    opacity: 1;
     cursor: pointer;
 }
 /* .__TP_secon_bdd:hover{
@@ -124,23 +125,20 @@
     margin: 0;
     font-size: 18px;
     margin-bottom: -12px;
-    transition: all 0.2s ease-out;
     font-family: "bold";
+}
+.Num_aliam_Stylus_font_init.selected {
+    transition: all 0.2s ease-out;
 }
 .__Aliam_TP_prevent_select {
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
 }
-.UIOw{
-    position: fixed;
-    width: 30px;
-    top: 10px;
-    left: 10px;
-}
 .Num_aliam_Stylus_font_Selected{
     margin: 0;
     font-size: 22px;
     margin-bottom: -13px;
+    transition: all 0.2s ease-out;
     font-family: "bold";
 }

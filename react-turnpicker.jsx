@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Assembler from "./src/assembler";
+import Assembler from "./src/Assembler";
 import ColorVars from "./src/color-vars-settign.json";
 import "./src/styles/__main.css";
 import { convertToPersianDigits, SetColorInStyles } from "./src/tools/common";
@@ -95,6 +95,7 @@ export default function TurnPicker({
   },
   background = "#fffdf9",
   mode = "D",
+  gusture = false,
   disabled = false,
   shadow = true,
   border = false,
@@ -239,6 +240,7 @@ export default function TurnPicker({
               shadow={shadow}
               border={border}
               em={enNum}
+              gus={gusture}
             />
             <div
               className={
